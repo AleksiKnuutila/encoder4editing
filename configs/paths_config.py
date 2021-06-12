@@ -1,28 +1,37 @@
 dataset_paths = {
-	#  Face Datasets (In the paper: FFHQ - train, CelebAHQ - test)
 	'ffhq': '',
 	'celeba_test': '',
 
-	#  Cars Dataset (In the paper: Stanford cars)
 	'cars_train': '',
 	'cars_test': '',
 
-	#  Horse Dataset (In the paper: LSUN Horse)
-	'horse_train': '',
-	'horse_test': '',
-
-	#  Church Dataset (In the paper: LSUN Church)
 	'church_train': '',
 	'church_test': '',
 
-	#  Cats Dataset (In the paper: LSUN Cat)
-	'cats_train': '',
-	'cats_test': ''
+	'horse_train': '',
+	'horse_test': '',
+
+	'afhq_wild_train': '',
+	'afhq_wild_test': '',
+
+  'streetview_train': '/content/final_images_512',
+  'streetview_test': '/content/final_images_512_test'
 }
 
 model_paths = {
-	'stylegan_ffhq': 'pretrained_models/stylegan2-ffhq-config-f.pt',
+  'streetview': '/content/model.pt',
 	'ir_se50': 'pretrained_models/model_ir_se50.pth',
+	'resnet34': 'pretrained_models/resnet34-333f7ec4.pth',
+	'stylegan_ffhq': 'pretrained_models/stylegan2-ffhq-config-f.pt',
+	'stylegan_cars': 'pretrained_models/stylegan2-car-config-f.pt',
+	'stylegan_church': 'pretrained_models/stylegan2-church-config-f.pt',
+	'stylegan_horse': 'pretrained_models/stylegan2-horse-config-f.pt',
+	'stylegan_ada_wild': 'pretrained_models/afhqwild.pt',
+	'stylegan_toonify': 'pretrained_models/ffhq_cartoon_blended.pt',
 	'shape_predictor': 'pretrained_models/shape_predictor_68_face_landmarks.dat',
-	'moco': 'pretrained_models/moco_v2_800ep_pretrain.pth'
+	'circular_face': 'pretrained_models/CurricularFace_Backbone.pth',
+	'mtcnn_pnet': 'pretrained_models/mtcnn/pnet.npy',
+	'mtcnn_rnet': 'pretrained_models/mtcnn/rnet.npy',
+	'mtcnn_onet': 'pretrained_models/mtcnn/onet.npy',
+	'moco': 'pretrained_models/moco_v2_800ep_pretrain.pth.tar'
 }
