@@ -32,6 +32,8 @@ class pSp(nn.Module):
             encoder = psp_encoders.GradualStyleEncoder(50, 'ir_se', self.opts)
         elif self.opts.encoder_type == 'Encoder4Editing':
             encoder = psp_encoders.Encoder4Editing(50, 'ir_se', self.opts)
+        elif self.opts.encoder_type == 'SingleStyleCodeEncoder':
+            encoder = psp_encoders.BackboneEncoderUsingLastLayerIntoW(50, 'ir_se', self.opts)
         else:
             raise Exception('{} is not a valid encoders'.format(self.opts.encoder_type))
         return encoder
@@ -92,7 +94,11 @@ class pSp(nn.Module):
     def __load_latent_avg(self, ckpt, repeat=None):
         if 'latent_avg' in ckpt:
             self.latent_avg = ckpt['latent_avg'].to(self.opts.device)
-            if repeat is not None:
-                self.latent_avg = self.latent_avg.repeat(repeat, 1)
+        elif self.opts.start_from_latent_avg:
+            # Compute mean code based on a large number of latents (10,000 here)
+            with torch.no_grad():
+                self.latent_avg = self.decoder.mean_latent(10000).to(self.opts.device)
         else:
             self.latent_avg = None
+        if repeat is not None and self.latent_avg is not None:
+            self.latent_avg = self.latent_avg.repeat(repeat, 1)

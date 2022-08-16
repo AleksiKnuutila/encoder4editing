@@ -7,7 +7,6 @@ from models.encoders.psp_encoders import Encoder4Editing
 def setup_model(checkpoint_path, device='cuda'):
     ckpt = torch.load(checkpoint_path, map_location='cpu')
     opts = ckpt['opts']
-
     is_cars = 'car' in opts['dataset_type']
     is_faces = 'ffhq' in opts['dataset_type']
     if is_faces:
