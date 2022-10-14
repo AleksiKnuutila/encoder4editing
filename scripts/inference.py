@@ -77,6 +77,7 @@ def get_latents(net, x, is_cars=False):
 
 def get_all_latents(net, data_loader, n_images=None, is_cars=False):
     all_latents = []
+    all_filenames = []
     i = 0
     with torch.no_grad():
         for batch in data_loader:
@@ -85,6 +86,7 @@ def get_all_latents(net, data_loader, n_images=None, is_cars=False):
             x = batch
             inputs = x.to(device).float()
             latents = get_latents(net, inputs, is_cars)
+            import pdb;pdb.set_trace()
             all_latents.append(latents)
             i += len(latents)
     return torch.cat(all_latents)
