@@ -27,11 +27,14 @@ def main(args):
 
     # Check if latents exist
     latents_file_path = os.path.join(args.save_dir, 'latents.pt')
+    filenames_file_path = os.path.join(args.save_dir, 'filenames.pt')    
     if os.path.exists(latents_file_path):
         latent_codes = torch.load(latents_file_path).to(device)
     else:
         latent_codes = get_all_latents(net, data_loader, args.n_sample, is_cars=is_cars)
         torch.save(latent_codes, latents_file_path)
+        filenames = data_loader.dataset.paths
+        torch.save(filenames, filenames_file_path)
 
     if not args.latents_only:
         generate_inversions(args, generator, latent_codes, is_cars=is_cars)
@@ -86,7 +89,6 @@ def get_all_latents(net, data_loader, n_images=None, is_cars=False):
             x = batch
             inputs = x.to(device).float()
             latents = get_latents(net, inputs, is_cars)
-            import pdb;pdb.set_trace()
             all_latents.append(latents)
             i += len(latents)
     return torch.cat(all_latents)
